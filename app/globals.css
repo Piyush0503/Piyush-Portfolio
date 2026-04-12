@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --color-surface-0: #030712;
+  --color-surface-1: #0a0f1a;
+  --color-surface-2: #111827;
+  --color-accent: #00e5ff;
+  --color-accent-dim: #00b8d4;
+  --color-violet: #8b5cf6;
+  --color-violet-bright: #a78bfa;
+  --color-muted: #94a3b8;
+  --color-border: rgba(148, 163, 184, 0.1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-[var(--color-surface-0)] text-slate-100 antialiased;
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-accent) 35%, transparent);
+  color: #f8fafc;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(0, 229, 255, 0.04) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.glow-orb {
+  filter: blur(100px);
+  opacity: 0.28;
+}
+
+.glass-panel {
+  background: linear-gradient(
+    145deg,
+    rgba(17, 24, 39, 0.72) 0%,
+    rgba(15, 23, 42, 0.45) 100%
+  );
+  border: 1px solid var(--color-border);
+  box-shadow:
+    0 0 0 1px rgba(0, 229, 255, 0.04),
+    0 24px 48px -12px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+}
+
+.text-gradient {
+  background: linear-gradient(120deg, #38bdf8 0%, #818cf8 45%, #c084fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.cta-glow-border {
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  box-shadow:
+    0 0 40px -8px rgba(0, 229, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.stat-glow {
+  text-shadow: 0 0 32px rgba(0, 229, 255, 0.35);
+}
