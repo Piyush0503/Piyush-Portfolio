@@ -8,13 +8,13 @@ export function HeroCodePanel() {
 
   return (
     <div className="glass-panel overflow-hidden rounded-xl">
-      <div className="flex items-center gap-2 border-b border-[var(--color-border)] bg-black/30 px-4 py-3">
+      <div className="flex items-center gap-2 border-b border-[var(--color-border)] bg-black/30 px-3 py-2">
         <span className="h-3 w-3 rounded-full bg-[#ff5f57]" aria-hidden />
         <span className="h-3 w-3 rounded-full bg-[#febc2e]" aria-hidden />
         <span className="h-3 w-3 rounded-full bg-[#28c840]" aria-hidden />
         <span className="ml-2 font-mono text-xs text-slate-500">developer.ts</span>
       </div>
-      <pre className="overflow-x-auto p-4 font-mono text-[11px] leading-relaxed text-slate-300 sm:text-xs">
+      <pre className="overflow-x-auto p-3 font-mono text-[11px] leading-relaxed text-slate-300 sm:p-4 sm:text-xs">
         <code>
           <span className="text-purple-400">const</span> <span className="text-cyan-300">developer</span>{" "}
           <span className="text-slate-500">=</span> {"{"}

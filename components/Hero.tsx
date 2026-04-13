@@ -6,7 +6,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative scroll-mt-24 overflow-hidden pt-28 pb-16 sm:pt-32 sm:pb-24"
+      className="relative scroll-mt-24 overflow-hidden pt-hero-pt pb-hero-pb sm:pt-hero-pt-lg sm:pb-hero-pb-lg"
     >
       <div
         className="pointer-events-none absolute -left-40 top-24 h-80 w-80 animate-pulse rounded-full bg-[var(--color-accent)] glow-orb [animation-duration:5s]"
@@ -19,7 +19,7 @@ export function Hero() {
       <div className="bg-grid absolute inset-0 opacity-50" aria-hidden />
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-10">
+        <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.05fr] lg:gap-8">
           <HeroIntro />
           <HeroCodeShell>
             <HeroCodePanel />

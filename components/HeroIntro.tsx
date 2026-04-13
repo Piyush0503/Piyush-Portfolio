@@ -17,7 +17,7 @@ export function HeroIntro() {
   return (
     <div>
       <motion.p
-        className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400"
+        className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400"
         initial={reduce ? false : { opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ ...base, delay: reduce ? 0 : 0.05 }}
@@ -95,7 +95,7 @@ export function HeroIntro() {
       </motion.p>
 
       <motion.div
-        className="mt-8 flex flex-wrap gap-4"
+        className="mt-6 flex flex-wrap gap-3"
         initial={reduce ? false : { opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ ...base, delay: reduce ? 0 : 0.95 }}

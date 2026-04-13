@@ -3,9 +3,9 @@ import { stats } from "@/data/stats";
 
 export function Stats() {
   return (
-    <section className="border-b border-[var(--color-border)] bg-[var(--color-surface-0)] py-12 sm:py-14">
+    <section className="border-b border-[var(--color-border)] bg-[var(--color-surface-0)] py-8 sm:py-10">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-0">
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-0">
           {stats.map((s, i) => (
             <Reveal
               key={s.label}

@@ -4,6 +4,17 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 
+  /* Vertical rhythm: tune here to tighten/loosen the whole site */
+  --spacing-section: 2.75rem;
+  --spacing-section-lg: 3.5rem;
+  --spacing-band: 2.25rem;
+  --spacing-band-lg: 2.5rem;
+  --spacing-hero-pt: 5rem;
+  --spacing-hero-pt-lg: 5.5rem;
+  --spacing-hero-pb: 2.5rem;
+  --spacing-hero-pb-lg: 3.5rem;
+  --spacing-stack: 2rem;
+
   --color-surface-0: #030712;
   --color-surface-1: #0a0f1a;
   --color-surface-2: #111827;

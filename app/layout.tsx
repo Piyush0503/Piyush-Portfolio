@@ -15,9 +15,9 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Piyush — Full-Stack Developer",
+  title: "Piyush — Full-Stack web Developer",
   description:
-    "Portfolio of a full-stack developer specializing in Next.js, React, Node.js, Spring Boot, PostgreSQL, and MongoDB.",
+    "Portfolio of a full-stack developer specializing in Next js, React js, Express js, Node.js, Spring Boot, PostgreSQL, and MongoDB.",
   keywords: [
     "Next.js",
     "React",
