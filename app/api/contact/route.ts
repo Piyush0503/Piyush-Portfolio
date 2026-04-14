@@ -60,9 +60,14 @@ export async function POST(request: Request) {
     });
 
     // 2. Send email notification (fire-and-forget, don't block the response)
-    sendContactNotification(trimmed).catch((err) => {
-      console.error("Email notification failed:", err);
-    });
+    sendContactNotification(trimmed)
+      .then(() => {
+        console.log("✅ Email notification sent successfully to", process.env.NOTIFY_EMAIL);
+      })
+      .catch((err) => {
+        console.error("❌ Email notification failed:", err?.message ?? err);
+        console.error("SMTP config check — HOST:", process.env.SMTP_HOST, "PORT:", process.env.SMTP_PORT, "USER:", process.env.SMTP_USER ? "set" : "MISSING", "PASS:", process.env.SMTP_PASS ? "set" : "MISSING");
+      });
 
     return NextResponse.json({ ok: true });
   } catch (e) {

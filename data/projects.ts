@@ -30,7 +30,7 @@ export const projects: Project[] = [
     title: "Realtime Dashboard",
     description:
       "Role-aware React UI with secure APIs, charts, and optimistic updates.",
-    stack: ["React", "Next.js", "javaScript"],
+    stack: ["React", "Next.js", "javaScript","Charts.js","Tailwind CSS"],
     category: "FRONTEND",
     sourceUrl: "https://github.com/Piyush0503/pulse-dashboard",
     liveUrl: "https://pulse-dashboard-mauve.vercel.app",
