@@ -12,18 +12,19 @@ export const projects: Project[] = [
     title: "E-Commerce Platform",
     description:
       "Full checkout flow, inventory sync, and admin analytics with real-time order updates.",
-    stack: ["Next.js", "Node.js", "PostgreSQL"],
+    stack: ["React js", "Express js", "Node.js", "MongoDB"],
     category: "FULLSTACK",
-    sourceUrl: "https://github.com",
-    liveUrl: "https://vercel.com",
+    sourceUrl: "https://github.com/Piyush0503/Ecommerce-App",
+    // liveUrl: "https://vercel.com",
   },
   {
-    title: "API Gateway Service",
+    title: "Food Delivery App",
     description:
-      "Spring Boot microservice with JWT auth, rate limits, and OpenAPI documentation.",
-    stack: ["Spring Boot", "PostgreSQL", "Docker"],
-    category: "BACKEND",
-    sourceUrl: "https://github.com",
+      "Food Delivery App with features like order tracking, payment integration, and real-time notifications.",
+    stack: ["React js", "Express js", "Node.js", "MongoDB"],
+    category: "FRONTEND",
+    sourceUrl: "https://github.com/Piyush0503/Tasty-Treat",
+    liveUrl:"https://tasty-treat-91y1.vercel.app"
   },
   {
     title: "Realtime Dashboard",
