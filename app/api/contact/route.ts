@@ -52,24 +52,18 @@ export async function POST(request: Request) {
   }
 
   try {
-    console.log("📨 Contact form submission received from:", trimmed.email);
-
     // 1. Save to MongoDB
     const db = await getDb();
     await db.collection("contact_messages").insertOne({
       ...trimmed,
       createdAt: new Date(),
     });
-    console.log("✅ Saved to MongoDB");
 
-    // 2. Send email notification
-    try {
-      await sendContactNotification(trimmed);
-      console.log("✅ Email sent successfully to", process.env.NOTIFY_EMAIL);
-    } catch (emailErr: unknown) {
-      const msg = emailErr instanceof Error ? emailErr.message : String(emailErr);
-      console.error("❌ Email failed:", msg);
-      console.error("SMTP config — HOST:", process.env.SMTP_HOST, "PORT:", process.env.SMTP_PORT, "USER:", process.env.SMTP_USER ? "set" : "MISSING", "PASS:", process.env.SMTP_PASS ? "set" : "MISSING", "NOTIFY:", process.env.NOTIFY_EMAIL ? "set" : "MISSING");
+    // 2. Send email notification (skip if RESEND_API_KEY is not set)
+    if (process.env.RESEND_API_KEY) {
+      sendContactNotification(trimmed).catch((err) => {
+        console.error("Email notification failed:", err);
+      });
     }
 
     return NextResponse.json({ ok: true });
