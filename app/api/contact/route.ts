@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/mongodb";
+import { sendContactNotification } from "@/lib/mailer";
 import type { ContactPayload } from "@/types/contact";
 
 function isValidEmail(email: string): boolean {
@@ -51,11 +52,18 @@ export async function POST(request: Request) {
   }
 
   try {
+    // 1. Save to MongoDB
     const db = await getDb();
     await db.collection("contact_messages").insertOne({
       ...trimmed,
       createdAt: new Date(),
     });
+
+    // 2. Send email notification (fire-and-forget, don't block the response)
+    sendContactNotification(trimmed).catch((err) => {
+      console.error("Email notification failed:", err);
+    });
+
     return NextResponse.json({ ok: true });
   } catch (e) {
     console.error("contact insert error", e);
