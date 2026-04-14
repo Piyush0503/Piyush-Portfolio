@@ -30,17 +30,18 @@ export const projects: Project[] = [
     title: "Realtime Dashboard",
     description:
       "Role-aware React UI with secure APIs, charts, and optimistic updates.",
-    stack: ["React", "Next.js", "MongoDB"],
+    stack: ["React", "Next.js", "javaScript"],
     category: "FRONTEND",
-    liveUrl: "#contact",
+    sourceUrl: "https://github.com/Piyush0503/pulse-dashboard",
+    liveUrl: "https://pulse-dashboard-mauve.vercel.app",
   },
-  {
-    title: "Design System",
-    description:
-      "Accessible components, dark theme tokens, and Tailwind-based documentation site.",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    category: "FRONTEND",
-    sourceUrl: "https://github.com",
-    liveUrl: "#contact",
-  },
+  // {
+  //   title: "Design System",
+  //   description:
+  //     "Accessible components, dark theme tokens, and Tailwind-based documentation site.",
+  //   stack: ["Next.js", "TypeScript", "Tailwind CSS"],
+  //   category: "FRONTEND",
+  //   sourceUrl: "https://github.com",
+  //   liveUrl: "#contact",
+  // },
 ];
