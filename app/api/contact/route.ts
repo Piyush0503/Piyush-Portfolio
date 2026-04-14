@@ -52,22 +52,25 @@ export async function POST(request: Request) {
   }
 
   try {
+    console.log("📨 Contact form submission received from:", trimmed.email);
+
     // 1. Save to MongoDB
     const db = await getDb();
     await db.collection("contact_messages").insertOne({
       ...trimmed,
       createdAt: new Date(),
     });
+    console.log("✅ Saved to MongoDB");
 
-    // 2. Send email notification (fire-and-forget, don't block the response)
-    sendContactNotification(trimmed)
-      .then(() => {
-        console.log("✅ Email notification sent successfully to", process.env.NOTIFY_EMAIL);
-      })
-      .catch((err) => {
-        console.error("❌ Email notification failed:", err?.message ?? err);
-        console.error("SMTP config check — HOST:", process.env.SMTP_HOST, "PORT:", process.env.SMTP_PORT, "USER:", process.env.SMTP_USER ? "set" : "MISSING", "PASS:", process.env.SMTP_PASS ? "set" : "MISSING");
-      });
+    // 2. Send email notification
+    try {
+      await sendContactNotification(trimmed);
+      console.log("✅ Email sent successfully to", process.env.NOTIFY_EMAIL);
+    } catch (emailErr: unknown) {
+      const msg = emailErr instanceof Error ? emailErr.message : String(emailErr);
+      console.error("❌ Email failed:", msg);
+      console.error("SMTP config — HOST:", process.env.SMTP_HOST, "PORT:", process.env.SMTP_PORT, "USER:", process.env.SMTP_USER ? "set" : "MISSING", "PASS:", process.env.SMTP_PASS ? "set" : "MISSING", "NOTIFY:", process.env.NOTIFY_EMAIL ? "set" : "MISSING");
+    }
 
     return NextResponse.json({ ok: true });
   } catch (e) {
