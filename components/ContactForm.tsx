@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -34,6 +35,16 @@ export function ContactForm() {
       }
       setStatus("success");
       form.reset();
+      Swal.fire({
+        icon: "success",
+        title: "Message Sent!",
+        text: "Thanks for reaching out — I'll get back to you shortly.",
+        background: "#0f172a",
+        color: "#e2e8f0",
+        confirmButtonColor: "#00e5ff",
+        confirmButtonText: "Awesome!",
+        iconColor: "#00e5ff",
+      });
     } catch {
       setError("Network error. Try again.");
       setStatus("error");
@@ -87,11 +98,7 @@ export function ContactForm() {
           {error}
         </p>
       ) : null}
-      {status === "success" ? (
-        <p className="text-sm text-[var(--color-accent)]" role="status">
-          Thanks—your message was sent.
-        </p>
-      ) : null}
+
       <button
         type="submit"
         disabled={status === "loading"}
