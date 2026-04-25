@@ -7,7 +7,7 @@ const experiences = [
     period: "11/2024 – Present",
     location: "Gandhinagar, Gujarat",
     tasks: [
-      "Worked with React JS, Java Spring Boot, and PostgreSQL to develop and maintain government projects including JKCIP (Jammu & Kashmir) and OCBIS (Kolkata), all under Ministry of Electronics & IT.",
+      "Contributed to multiple government projects under the Ministry of Electronics & Information Technology, playing a key role in the development and maintenance of scalable, secure, and high-performance applications. Actively collaborated with cross-functional teams to deliver reliable solutions aligned with organizational standards, ensuring quality, efficiency, and timely project execution",
     ],
   },
   {
