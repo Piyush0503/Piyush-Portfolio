@@ -59,12 +59,10 @@ export async function POST(request: Request) {
       createdAt: new Date(),
     });
 
-    // 2. Send email notification (skip if RESEND_API_KEY is not set)
-    if (process.env.RESEND_API_KEY) {
-      sendContactNotification(trimmed).catch((err) => {
-        console.error("Email notification failed:", err);
-      });
-    }
+    // 2. Send email notification via Resend (non-blocking)
+    sendContactNotification(trimmed).catch((err) => {
+      console.error("Email notification failed:", err);
+    });
 
     return NextResponse.json({ ok: true });
   } catch (e) {

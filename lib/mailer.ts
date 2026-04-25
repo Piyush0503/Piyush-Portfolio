@@ -1,15 +1,5 @@
 import nodemailer from "nodemailer";
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST ?? "smtp.gmail.com",
-  port: Number(process.env.SMTP_PORT ?? 587),
-  secure: false, // true for 465, false for 587 (STARTTLS)
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
-
 interface ContactEmail {
   name: string;
   email: string;
@@ -17,16 +7,35 @@ interface ContactEmail {
 }
 
 /**
- * Send a notification email when someone submits the contact form.
- * The email is sent TO the portfolio owner with a nicely formatted body.
+ * Send a notification email via Gmail SMTP (Nodemailer).
+ *
+ * Required environment variables:
+ *   SMTP_USER   — your Gmail address (e.g. you@gmail.com)
+ *   SMTP_PASS   — Gmail App Password (NOT your account password)
+ *                 Generate at: Google Account → Security → 2-Step Verification → App Passwords
+ *   NOTIFY_EMAIL — address that receives the notification (can be same as SMTP_USER)
  */
 export async function sendContactNotification({ name, email, message }: ContactEmail) {
-  const to = process.env.NOTIFY_EMAIL;
+  const smtpUser = process.env.SMTP_USER;
+  const smtpPass = process.env.SMTP_PASS;
+  const notifyEmail = process.env.NOTIFY_EMAIL;
 
-  if (!to || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    console.warn("Email not configured — skipping notification.");
+  if (!smtpUser || !smtpPass || !notifyEmail) {
+    console.warn(
+      "Email not configured — missing SMTP_USER, SMTP_PASS, or NOTIFY_EMAIL. Skipping notification.",
+    );
     return;
   }
+
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST ?? "smtp.gmail.com",
+    port: Number(process.env.SMTP_PORT ?? 587),
+    secure: false, // STARTTLS on port 587
+    auth: {
+      user: smtpUser,
+      pass: smtpPass,
+    },
+  });
 
   const htmlBody = `
     <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0f172a; border-radius: 16px; overflow: hidden; border: 1px solid #1e293b;">
@@ -59,12 +68,14 @@ export async function sendContactNotification({ name, email, message }: ContactE
   `;
 
   await transporter.sendMail({
-    from: `"Portfolio Contact" <${process.env.SMTP_USER}>`,
-    to,
+    from: `"Portfolio Contact" <${smtpUser}>`,
+    to: notifyEmail,
+    replyTo: email,
     subject: `New message from ${name}`,
     html: htmlBody,
-    replyTo: email,
   });
+
+  console.log("✅ Email sent via Gmail SMTP to", notifyEmail);
 }
 
 /** Prevent XSS in email HTML */
