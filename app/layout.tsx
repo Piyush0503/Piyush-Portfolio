@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { CursorGlow } from "@/components/animations/CursorGlow";
+import { ScrollProgress } from "@/components/animations/ScrollProgress";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,6 +39,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${inter.variable} ${jetbrains.variable} min-h-screen`}>
+        <ScrollProgress />
+        <CursorGlow />
         {children}
       </body>
     </html>

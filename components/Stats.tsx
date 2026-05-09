@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/animations/Reveal";
+import { CountUp } from "@/components/animations/CountUp";
 import { stats } from "@/data/stats";
 
 export function Stats() {
@@ -15,7 +16,7 @@ export function Stats() {
               }`}
             >
               <span className="stat-glow text-3xl font-bold tabular-nums text-[var(--color-accent)] sm:text-4xl">
-                {s.value}
+                <CountUp value={s.value} />
               </span>
               <span className="mt-1 text-sm text-slate-500">{s.label}</span>
             </Reveal>

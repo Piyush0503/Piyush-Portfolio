@@ -1,4 +1,7 @@
+"use client";
+
 import { Reveal } from "@/components/animations/Reveal";
+import { TiltCard } from "@/components/animations/TiltCard";
 
 const education = [
   {
@@ -23,7 +26,7 @@ export function Education() {
   return (
     <section id="education" className="scroll-mt-24 py-section sm:py-section-lg">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <Reveal className="max-w-2xl">
+        <Reveal className="max-w-2xl" variant="blur">
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             My <span className="text-gradient">Education</span>
           </h2>
@@ -33,7 +36,8 @@ export function Education() {
         <div className="mt-stack flex flex-col gap-6">
           {education.map((edu, i) => (
             <Reveal key={i} delay={i * 0.1}>
-              <article className="glass-panel rounded-2xl px-6 py-6 sm:px-8 sm:py-7 transition-transform duration-300 hover:scale-[1.01] hover:shadow-[0_0_0_1px_rgba(0,229,255,0.12)]">
+              <TiltCard className="rounded-2xl">
+                <article className="glass-panel rounded-2xl px-6 py-6 sm:px-8 sm:py-7">
                 {/* Header row */}
                 <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
                   <div>
@@ -63,6 +67,7 @@ export function Education() {
                   </ul>
                 </div>
               </article>
+              </TiltCard>
             </Reveal>
           ))}
         </div>

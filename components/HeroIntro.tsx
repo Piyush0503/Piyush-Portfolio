@@ -3,19 +3,28 @@
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { site } from "@/data/site";
+import { TypeWriter } from "@/components/animations/TypeWriter";
+import { MagneticButton } from "@/components/animations/MagneticButton";
 
 const ease = [0.22, 1, 0.36, 1] as const;
+
+const ROLES = [
+  "Full-Stack Web Developer",
+  "React & Next.js Developer",
+  "Java Spring Boot Developer",
+  "TypeScript Enthusiast",
+  "PostgreSQL & MongoDB Developer",
+];
 
 export function HeroIntro() {
   const reduce = useReducedMotion();
   const hasTwoNames = site.lastName.trim().length > 0;
 
-  const base = reduce
-    ? { duration: 0 }
-    : { duration: 0.55, ease };
+  const base = reduce ? { duration: 0 } : { duration: 0.55, ease };
 
   return (
     <div>
+      {/* Status badge */}
       <motion.p
         className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400"
         initial={reduce ? false : { opacity: 0, y: 14 }}
@@ -29,6 +38,7 @@ export function HeroIntro() {
         Available for work
       </motion.p>
 
+      {/* Greeting */}
       <motion.p
         className="text-lg text-slate-400 sm:text-xl"
         initial={reduce ? false : { opacity: 0, y: 12 }}
@@ -38,6 +48,7 @@ export function HeroIntro() {
         Hello, I&apos;m
       </motion.p>
 
+      {/* Name */}
       <h1 className="mt-1 text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
         {hasTwoNames ? (
           <>
@@ -70,52 +81,58 @@ export function HeroIntro() {
         )}
       </h1>
 
-      <motion.p
-        className="mt-4 max-w-xl text-md leading-relaxed text-slate-200 sm:text-base"
-        initial={reduce ? false : { opacity: 0, y: 16 }}
+      {/* Typewriter role */}
+      <motion.div
+        className="mt-3 h-8 text-lg font-semibold sm:text-xl"
+        initial={reduce ? false : { opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ ...base, delay: reduce ? 0 : 0.68 }}
+        transition={{ ...base, delay: reduce ? 0 : 0.58 }}
       >
-        {site.heroIntro}
-      </motion.p>
+        <TypeWriter
+          words={ROLES}
+          className="text-[var(--color-accent)]"
+        />
+      </motion.div>
 
+      {/* Intro */}
       <motion.p
         className="mt-4 max-w-xl text-sm leading-relaxed text-slate-400 sm:text-base"
         initial={reduce ? false : { opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ ...base, delay: reduce ? 0 : 0.82 }}
+        transition={{ ...base, delay: reduce ? 0 : 0.72 }}
       >
         End-to-end product work with{" "}
-        <span className="text-slate-200">React js</span>,{" "}
-        <span className="text-slate-200">Next js</span>,{" "}
+        <span className="text-slate-200">React JS</span>,{" "}
+        <span className="text-slate-200">Next.js</span>,{" "}
         <span className="text-slate-200">Node.js</span>,{" "}
         <span className="text-slate-200">Java Spring Boot</span>,{" "}
         <span className="text-slate-200">PostgreSQL</span>, and{" "}
-        <span className="text-slate-200">MongoDB</span>—from UI polish to reliable APIs.
+        <span className="text-slate-200">MongoDB</span> — from UI polish to reliable APIs.
       </motion.p>
 
+      {/* CTA buttons */}
       <motion.div
-        className="mt-6 flex flex-wrap gap-3"
+        className="mt-7 flex flex-wrap gap-3"
         initial={reduce ? false : { opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ ...base, delay: reduce ? 0 : 0.95 }}
+        transition={{ ...base, delay: reduce ? 0 : 0.88 }}
       >
-        <motion.div whileHover={{ scale: reduce ? 1 : 1.03 }} whileTap={{ scale: reduce ? 1 : 0.98 }}>
+        <MagneticButton>
           <Link
             href="#projects"
-            className="inline-block rounded-xl bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-slate-950 shadow-[0_0_24px_-4px_rgba(0,229,255,0.5)] transition hover:bg-[var(--color-accent-dim)]"
+            className="inline-block rounded-xl bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-slate-950 shadow-[0_0_28px_-4px_rgba(0,229,255,0.55)] transition hover:bg-[var(--color-accent-dim)] hover:shadow-[0_0_36px_-4px_rgba(0,229,255,0.7)]"
           >
             View My Work
           </Link>
-        </motion.div>
-        <motion.div whileHover={{ scale: reduce ? 1 : 1.03 }} whileTap={{ scale: reduce ? 1 : 0.98 }}>
+        </MagneticButton>
+        <MagneticButton>
           <Link
             href="#contact"
-            className="inline-block rounded-xl border border-white/20 bg-transparent px-6 py-3 text-sm font-semibold text-white transition hover:border-[var(--color-accent)]/50 hover:bg-white/[0.03]"
+            className="inline-block rounded-xl border border-white/20 bg-transparent px-6 py-3 text-sm font-semibold text-white transition hover:border-[var(--color-accent)]/50 hover:bg-white/[0.04]"
           >
             Get In Touch
           </Link>
-        </motion.div>
+        </MagneticButton>
       </motion.div>
     </div>
   );
