@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { getDb } from "@/lib/mongodb";
 import { sendContactNotification } from "@/lib/mailer";
 import type { ContactPayload } from "@/types/contact";
 
@@ -8,13 +7,6 @@ function isValidEmail(email: string): boolean {
 }
 
 export async function POST(request: Request) {
-  if (!process.env.MONGODB_URI) {
-    return NextResponse.json(
-      { ok: false, error: "Contact form is not configured (missing MONGODB_URI)." },
-      { status: 503 },
-    );
-  }
-
   let body: unknown;
   try {
     body = await request.json();
@@ -51,25 +43,33 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Invalid message." }, { status: 400 });
   }
 
+  // 1. Save to MongoDB (optional — skipped if MONGODB_URI is not set)
+  if (process.env.MONGODB_URI) {
+    try {
+      const { getDb } = await import("@/lib/mongodb");
+      const db = await getDb();
+      await db.collection("contact_messages").insertOne({
+        ...trimmed,
+        createdAt: new Date(),
+      });
+    } catch (e) {
+      // Log but don't fail the request — email is more important
+      console.error("MongoDB insert failed:", e);
+    }
+  } else {
+    console.warn("MONGODB_URI not set — skipping database save.");
+  }
+
+  // 2. Send email notification
   try {
-    // 1. Save to MongoDB
-    const db = await getDb();
-    await db.collection("contact_messages").insertOne({
-      ...trimmed,
-      createdAt: new Date(),
-    });
-
-    // 2. Send email notification via Resend (non-blocking)
-    sendContactNotification(trimmed).catch((err) => {
-      console.error("Email notification failed:", err);
-    });
-
-    return NextResponse.json({ ok: true });
+    await sendContactNotification(trimmed);
   } catch (e) {
-    console.error("contact insert error", e);
+    console.error("Email notification failed:", e);
     return NextResponse.json(
-      { ok: false, error: "Could not save your message. Try again later." },
+      { ok: false, error: "Message received but email notification failed. Please try again." },
       { status: 500 },
     );
   }
+
+  return NextResponse.json({ ok: true });
 }
